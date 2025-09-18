@@ -4,15 +4,14 @@ import com.seon.workshop.dto.CrawlingResponse;
 import com.seon.workshop.dto.CrawlingResult;
 import com.seon.workshop.model.Crawler;
 import com.seon.workshop.service.caching.CachingService;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
+@AllArgsConstructor
 @Component
 public class CrawlerService {
     CachingService cachingService;
 
-    public CrawlerService(CachingService cachingService) {
-        this.cachingService = cachingService;
-    }
     public CrawlingResponse crawl_data(String target){
         CrawlingResult cached_result = this.cachingService.findByTargetUrl(target);
         if (cached_result != null) {return new CrawlingResponse(cached_result,true);}
